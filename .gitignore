@@ -109,3 +109,10 @@ venv.bak/
 # pipenv
 Pipfile
 Pipfile.lock
+.idea/.gitignore
+.idea/betagr.iml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/sqldialects.xml
+.idea/vcs.xml
