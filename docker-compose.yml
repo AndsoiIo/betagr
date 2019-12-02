@@ -17,7 +17,7 @@ services:
       context: https://github.com/tukva/sanic-docker.git#dev
       dockerfile: server/Dockerfile
     ports:
-      - 8080:8080
+      - 8085:8085
     command: python server/app.py
     depends_on:
       - liquibase
@@ -58,3 +58,8 @@ services:
             - LIQUIBASE_URL=jdbc:postgresql://host.docker.internal:${POSTGRES_PORT}/${POSTGRES_DB}
             - LIQUIBASE_USERNAME=${POSTGRES_USER}
             - LIQUIBASE_PASSWORD=${POSTGRES_PASSWORD}
+
+  camunda:
+    image: camunda/camunda-bpm-platform:latest
+    ports:
+      - 8080:8080
