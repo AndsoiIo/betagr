@@ -6,9 +6,9 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
   <changeSet id="017" author="admin">
     <sql>
-        INSERT INTO tb_user (username, password) VALUES ("admin", "adminbet");
-        INSERT INTO tb_user (username, password) VALUES ("moderator", "moderator");
-        INSERT INTO tb_user (username, password) VALUES ("viewer", "viewer");
+        INSERT INTO tb_user (username, password) VALUES ('admin', 'adminbet');
+        INSERT INTO tb_user (username, password) VALUES ('moderator', 'moderator');
+        INSERT INTO tb_user (username, password) VALUES ('viewer', 'viewer');
     </sql>
     <rollback>
         <sql>
