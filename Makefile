@@ -3,9 +3,8 @@ export
 
 setup_project:
 		sudo -u postgres psql -f create_database.sql -v db=${POSTGRES_DB} -v db_user=${POSTGRES_USER} -v pw="'${POSTGRES_PASSWORD}'"
-		docker-compose up -d camunda
-		docker-compose build
-        curl -w "\n" \
+		docker-compose up --build
+		curl -w "\n" \
             -H "Accept: application/json" \
             -F "deployment-name=BetAggr" \
             -F "enable-duplicate-filtering=true" \
