@@ -5,10 +5,8 @@ services:
       context: https://github.com/AndsoiIo/betagr-dashboard.git#dev
       dockerfile: server/Dockerfile
     ports:
-      - 5000:5000
+      - 5050:5050
     command: python server/app.py
-    depends_on:
-      - liquibase
     env_file:
       .env
 
@@ -32,13 +30,23 @@ services:
       - 3000:3000
     command: python server/app.py
     depends_on:
-      - liquibase
+      - parser
     env_file:
       .env
 
   parser:
-    build: 
+    build:
       context: https://github.com/tukva/parser.git#dev
+      dockerfile: server/Dockerfile
+    ports:
+      - 5000:5000
+    command: python server/app.py
+    env_file:
+      .env
+
+  betting_data:
+    build:
+      context: https://github.com/tukva/betting-data.git#dev
       dockerfile: server/Dockerfile
     ports:
       - 8000:8000
