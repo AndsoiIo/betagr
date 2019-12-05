@@ -3,14 +3,19 @@ export
 
 setup_project:
 		sudo -u postgres psql -f create_database.sql -v db=${POSTGRES_DB} -v db_user=${POSTGRES_USER} -v pw="'${POSTGRES_PASSWORD}'"
-		docker-compose up --build
+		@echo "\n---DATABASE OK---\n"
+		docker-compose up -d camunda
+		docker-compose build
+		@echo "\n---COMPOSE BUILD OK---\n"
 		curl -w "\n" \
             -H "Accept: application/json" \
             -F "deployment-name=BetAggr" \
             -F "enable-duplicate-filtering=true" \
             -F "deploy-changed-only=true" \
             -F "betaggr.bpmn=@betaggr.bpmn" \
-            http://$(CAMUNDA_API_HOST):$(CAMUNDA_API_PORT)/engine-rest/deployment/create
+            http://localhost:$(CAMUNDA_API_PORT)/engine-rest/deployment/create
+		@echo "\n---BPMN DEPLOY OK---\n"
+
 run_project:
 		docker-compose up
 run_psql:
