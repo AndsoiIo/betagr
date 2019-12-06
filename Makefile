@@ -18,5 +18,13 @@ setup_project:
 
 run_project:
 		docker-compose up
+
 run_psql:
 		psql -h localhost -p ${POSTGRES_PORT} -d ${POSTGRES_DB} -U ${POSTGRES_USER}
+
+run_tests:
+		sudo -u postgres psql -f create_database.sql -v db=${POSTGRES_TEST_DB} -v db_user=${POSTGRES_USER} -v pw="'${POSTGRES_PASSWORD}'"
+		docker-compose -f docker-compose-testing.yml build
+		docker-compose -f docker-compose-testing.yml up
+		docker-compose -f docker-compose-testing.yml down
+		sudo -u postgres psql -f drop_database.sql -v db=${POSTGRES_TEST_DB}

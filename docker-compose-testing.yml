@@ -1,0 +1,57 @@
+version: '3'
+services:
+  dashboard:
+    build:
+      context: https://github.com/AndsoiIo/betagr-dashboard.git#dev
+      dockerfile: server/Dockerfile
+    ports:
+      - 5050:5050
+    command: pytest
+    env_file:
+      .env
+
+  sso:
+    build:
+      context: https://github.com/tukva/sanic-docker.git#dev
+      dockerfile: server/Dockerfile
+    ports:
+      - 8085:8085
+    command: pytest
+    env_file:
+      .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_TEST_DB}
+
+  aggregator:
+    build:
+      context: https://github.com/tukva/aggregator.git#dev
+      dockerfile: server/Dockerfile
+    ports:
+      - 3000:3000
+    command: pytest
+    depends_on:
+      - parser
+    env_file:
+      .env
+
+  parser:
+    build:
+      context: https://github.com/tukva/parser.git#dev
+      dockerfile: server/Dockerfile
+    ports:
+      - 5000:5000
+    command: pytest
+    env_file:
+      .env
+
+  betting_data:
+    build:
+      context: https://github.com/tukva/betting-data.git#dev
+      dockerfile: server/Dockerfile
+    ports:
+      - 8000:8000
+    command: pytest
+    env_file:
+      .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_TEST_DB}
