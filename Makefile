@@ -5,6 +5,8 @@ setup_project:
 		sudo -u postgres psql -f create_database.sql -v db=${POSTGRES_DB} -v db_user=${POSTGRES_USER} -v pw="'${POSTGRES_PASSWORD}'"
 		@echo "\n---DATABASE OK---\n"
 		docker-compose up -d camunda
+		@echo "\n---VUE-UI OK---\n"
+		docker-compose up -d vue-ui
 		docker-compose build
 		@echo "\n---COMPOSE BUILD OK---\n"
 		curl -w "\n" \

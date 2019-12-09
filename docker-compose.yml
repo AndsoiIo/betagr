@@ -31,6 +31,7 @@ services:
     command: python server/app.py
     depends_on:
       - parser
+      - betting_data
     env_file:
       .env
 
@@ -53,6 +54,19 @@ services:
     command: python server/app.py
     depends_on:
       - liquibase
+    env_file:
+      .env
+
+  vue-ui:
+    build:
+      context: ../betagr-project/betagr-vue-ui/
+      # context: https://github.com/AndsoiIo/betagr-vue-ui.git#dev
+      dockerfile: Dockerfile
+    ports:
+      - 3333:8080
+    command: bash -c "npm run build && http-server dist"
+    depends_on:
+      - betting_data
     env_file:
       .env
 
