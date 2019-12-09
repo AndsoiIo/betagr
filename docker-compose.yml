@@ -59,8 +59,7 @@ services:
 
   vue-ui:
     build:
-      context: ../betagr-project/betagr-vue-ui/
-      # context: https://github.com/AndsoiIo/betagr-vue-ui.git#dev
+      context: https://github.com/AndsoiIo/betagr-vue-ui.git#dev
       dockerfile: Dockerfile
     ports:
       - 3333:8080
